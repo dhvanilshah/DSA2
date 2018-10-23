@@ -51,7 +51,7 @@ int hashTable::insert(const string &key, void *pv)
         return 1;
     }
 
-    while (data[pos].isOccupied == true)
+    while (data[pos].isOccupied == true && data[pos].isDeleted == false)
     {
         pos++;
         if (pos == capacity)
@@ -103,7 +103,7 @@ int hashTable::findPos(const std::string &key)
     int pos = hash(key);
     while (data[pos].isOccupied)
     {
-        if (data[pos].key == key)
+        if (data[pos].key == key && data[pos].isDeleted == false)
         {
             return pos;
         }
@@ -144,4 +144,49 @@ bool hashTable::contains(const std::string &key)
     {
         return true;
     }
+}
+
+// Finds the position of a hashItem by its key, if the position does exist.
+// if the position exists, the function returns the item's pv, else it returns NULL
+void *hashTable::getPointer(const std::string &key, bool *b)
+{
+    int pos;
+    if ((pos = findPos(key)) >= 0)
+    {
+        if (b != NULL)
+        {
+            *b = true;
+        }
+        return data[pos].pv;
+    }
+    if (b != NULL)
+    {
+        *b = false;
+    }
+    return NULL;
+}
+
+// Finds position of a hashItem (by its key) if the position exists.
+//If it does exist, the function returns 0 and sets the hashItem's pv, else it returns 1.
+int hashTable::setPointer(const std::string &key, void *pv)
+{
+    int pos;
+    if ((pos = findPos(key)) >= 0)
+    {
+        data[pos].pv = pv;
+        return 0;
+    }
+    return 1;
+}
+
+// Lazily deletes by setting a hashItem's isDeleted value to be true.
+bool hashTable::remove(const std::string &key)
+{
+    int pos;
+    if ((pos = findPos(key)) >= 0)
+    {
+        data[pos].isDeleted = true;
+        return true;
+    }
+    return false;
 }

@@ -4,10 +4,10 @@
 #include <vector>
 #include <string>
 
-class hashTable {
+class hashTable
+{
 
- public:
-
+public:
   // The constructor initializes the hash table.
   // Uses getPrime to choose a prime number at least as large as
   // the specified size for the initial size of the hash table.
@@ -19,7 +19,7 @@ class hashTable {
   // Returns 0 on success,
   // 1 if key already exists in hash table,
   // 2 if rehash fails.
-  int insert(const std::string &key, void *pv = NULL);
+  int insert(const std::string &key, void *pv);
 
   // Check if the specified key is in the hash table.
   // If so, return true; otherwise, return false.
@@ -42,8 +42,7 @@ class hashTable {
   // false if the specified key is not in the hash table.
   bool remove(const std::string &key);
 
- private:
-
+private:
   // Each item in the hash table contains:
   // key - a string used as a key.
   // isOccupied - if false, this entry is empty,
@@ -51,7 +50,8 @@ class hashTable {
   // isDeleted - if true, this item has been lazily deleted.
   // pv - a pointer related to the key;
   //      NULL if no pointer was provided to insert.
-  class hashItem {
+  class hashItem
+  {
   public:
     std::string key;
     bool isOccupied;
@@ -60,7 +60,7 @@ class hashTable {
   };
 
   int capacity; // The current capacity of the hash table.
-  int filled; // Number of occupied items in the table.
+  int filled;   // Number of occupied items in the table.
 
   std::vector<hashItem> data; // The actual entries are here.
 

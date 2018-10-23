@@ -76,7 +76,6 @@ int main()
       retVal = myHeap1.insert(stringTmp, key);
 
       cout << "\nCall to 'insert' returned: " << retVal << endl;
-
       break;
 
     case 2:
@@ -106,7 +105,6 @@ int main()
         cout << "\nDeleted item with string id \"" << stringTmp
              << "\" and key " << key << endl;
       }
-
       break;
 
     case 4:
@@ -120,7 +118,6 @@ int main()
         cout << "\nDeleted item with string id \"" << stringTmp
              << "\" and key " << key << endl;
       }
-
       break;
 
     case 5:
